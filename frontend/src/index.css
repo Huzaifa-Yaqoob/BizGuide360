@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 34 98.35% 98.4%;
+    --foreground: 34 6.7% 0.8%;
+
+    --muted: 34 6.7% 92%;
+    --muted-foreground: 34 3.35% 42%;
+
+    --popover: 34 36.4% 92%;
+    --popover-foreground: 34 6.7% 1%;
+
+    --card: 34 36.4% 92%;
+    --card-foreground: 34 6.7% 1%;
+
+    --border: 34 11.7% 89.8%;
+    --input: 34 11.7% 89.8%;
+
+    --primary: 34 67% 20%;
+    --primary-foreground: 34 1.34% 92%;
+
+    --secondary: 34 3.35% 96%;
+    --secondary-foreground: 34 5.0200000000000005% 12%;
+
+    --accent: 34 3.35% 96%;
+    --accent-foreground: 34 5.0200000000000005% 12%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --ring: 34 67% 20%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border font-raleway;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .h1 {
+    @apply text-h1FontSize font-semibold;
+  }
+  .h2 {
+    @apply text-h2FontSize font-semibold;
+  }
+  .h3 {
+    @apply text-h3FontSize font-bold;
+  }
+  .h4 {
+    @apply text-h4FontSize font-normal;
+  }
+  .h5 {
+    @apply text-h5FontSize font-bold;
+  }
+  .h6 {
+    @apply text-h6FontSize font-bold;
+  }
+  .paragraph {
+    @apply text-base font-medium;
+  }
+  .small {
+    @apply text-smallFontSize font-normal;
+  }
+  .extraSmall {
+    @apply text-extraSmallFontSize font-light;
+  }
+  .my-container {
+    @apply py-2 px-4 md:px-8 lg:px-12;
+  }
+  .my-section {
+    @apply py-8 px-4 md:px-8 lg:px-12;
+  }
+}
+
+@media (max-width: 639px) {
+  * {
+    font-size: 14px;
+  }
+}
+
+/* Medium to Large */
+@media (min-width: 640px) and (max-width: 1023px) {
+  * {
+    font-size: 16px;
+  }
+}
+
+/* Extra Large */
+@media (min-width: 1024px) {
+  * {
+    font-size: 18px;
+  }
+}
+
+/* background image for hero image */
+.heroImage {
+  background-image: url("/Buildings.jpg");
+}
