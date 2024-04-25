@@ -10,7 +10,6 @@ export default function Home() {
       <Features />
       <AboutAI />
       <AboutBizGuide360 />
-      {/* {process.env.BIZGUIDE360_API} */}
     </div>
   );
 }

@@ -2,7 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send("Birds home page");
+  res.json({ ab: "ass" });
+});
+
+// register
+router.post("/", (req, res) => {
+  try {
+  } catch (error) {}
+  res.json({ ab: "ass" });
 });
 
 module.exports = router;
