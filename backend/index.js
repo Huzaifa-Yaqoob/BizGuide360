@@ -18,6 +18,7 @@ connectDB()
     console.log(err, "Error while connecting to the database");
   });
 
+app.use(express.json());
 app.use("/", User);
 app.use("/business", Business);
 app.use("/category", Category);

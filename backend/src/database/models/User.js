@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
@@ -12,6 +13,8 @@ const UserSchema = new Schema(
     },
     email: {
       type: String,
+      required: true,
+      unique: true,
       validate: {
         validator: function (value) {
           // Validate that the value is a valid email address
@@ -43,5 +46,17 @@ const UserSchema = new Schema(
   },
   { timestamps: true }
 );
+
+UserSchema.pre("save", async function (next) {
+  try {
+    // Generate a salt with a factor of 10
+    const salt = await bcrypt.genSalt(10);
+    // Hash the password with the generated salt
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    throw new Error("Error hashing password");
+  }
+});
 
 module.exports = mongoose.model("User", UserSchema);
