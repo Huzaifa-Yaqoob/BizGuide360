@@ -23,12 +23,12 @@ async function register(req, res) {
     res.json({ success: true, token, userData });
   } catch (error) {
     console.log(error, "register.js");
-    const errRes = customErrorChecker(error);
+    const errRes = customErrorHandler(error);
     res.status(errRes.status).json(errRes.errors);
   }
 }
 
-function customErrorChecker(error) {
+function customErrorHandler(error) {
   if (error.message === "Invalid Password") {
     return {
       status: 400,
