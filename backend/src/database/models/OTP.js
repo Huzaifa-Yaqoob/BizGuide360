@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema(
+const OTPSchema = new Schema(
   {
     username: {
       type: String,
@@ -14,7 +14,6 @@ const UserSchema = new Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       validate: {
         validator: function (value) {
           // Validate that the value is a valid email address
@@ -27,24 +26,32 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    role: {
+    otp: {
       type: String,
-      enum: ["user", "admin"],
-      default: "user",
-    },
-    avatarUrl: { type: String },
-    businesses: {
-      type: [Schema.Types.ObjectId],
-      ref: "Business",
       required: true,
     },
-    claims: {
-      type: [Schema.Types.ObjectId],
-      ref: "ClaimRequest",
+    expiredAt: {
+      type: Date,
       required: true,
+      default: function () {
+        return new Date(Date.now() + 2 * 60 * 60 * 1000);
+      },
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", UserSchema);
+OTPSchema.pre("save", async function (next) {
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    this.otp = await bcrypt.hash(this.otp, salt);
+    next();
+  } catch (error) {
+    throw new Error("Error hashing password");
+  }
+});
+
+OTPSchema.index({ expiredAt: 1 }, { expireAfterSeconds: 3600 });
+
+module.exports = mongoose.model("OTP", OTPSchema);

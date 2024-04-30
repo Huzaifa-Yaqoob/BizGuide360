@@ -8,7 +8,7 @@ async function logIn(req, res) {
     let token = {},
       userData = {};
     const { email: mail, password } = req.body;
-    const user = await User.findOne({ email: mail });
+    const user = await User.findOne({ email: mail, verified: true });
     if (!user) {
       // error for email not found
       throw new Error("Email00");
@@ -21,7 +21,7 @@ async function logIn(req, res) {
     let { _id, email, username, avatarUrl, role } = data;
     userData = { email, username, avatarUrl, role };
     token = generateToken({ _id, role });
-    res.json({ success: true, token, userData });
+    res.json({ token, userData });
   } catch (error) {
     console.log(error, "login.js");
     const errRes = customErrorHandler(error);

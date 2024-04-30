@@ -1,26 +1,26 @@
 const User = require("../../database/models/User");
+const OTP = require("../../database/models/OTP");
 const errorHandler = require("../../helpers/errorHandler");
 const verifyPassword = require("../../helpers/verifyPassword");
 const trimInputs = require("../../helpers/trimInputs");
-const { generateToken } = require("../../helpers/jwt");
+const { sendOTP, generateOTP } = require("../../helpers/otp");
 
 async function register(req, res) {
   try {
-    let token = {},
-      userData = {};
     const { username, email, password } = trimInputs(req.body);
     if (!verifyPassword(password)) {
       throw new Error("Invalid Password");
     }
+    // creating newUser to validate it
     const newUser = new User({ username, email, password });
-
+    // validating userData
     if ((await newUser.validate()) === undefined) {
-      let data = await newUser.save();
-      let { _id, email, username, avatarUrl, role } = data;
-      userData = { email, username, avatarUrl, role };
-      token = generateToken({ _id, role });
+      const otp = generateOTP();
+      // saving userData in otp schema
+      const userOTP = await new OTP({ username, email, password, otp }).save();
+      sendOTP(email, otp);
     }
-    res.json({ success: true, token, userData });
+    res.json({ email, status: "pending" });
   } catch (error) {
     console.log(error, "register.js");
     const errRes = customErrorHandler(error);

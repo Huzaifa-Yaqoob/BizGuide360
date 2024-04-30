@@ -1,12 +1,18 @@
 const express = require("express");
+const cors = require("cors");
 const connectDB = require("./src/database/db");
 const User = require("./src/routes/user");
 const Business = require("./src/routes/business");
 const Category = require("./src/routes/category");
 const Location = require("./src/routes/location");
 const BusinessClaim = require("./src/routes/business_claim");
-const app = express();
+
 const port = process.env.PORT;
+const frontEndOrigin = process.env.FRONTEND_URL;
+
+const app = express();
+
+app.use(cors({ origin: frontEndOrigin }));
 
 connectDB()
   .then(() => {
