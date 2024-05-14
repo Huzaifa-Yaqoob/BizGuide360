@@ -16,6 +16,10 @@ import { DialogFooter, DialogClose } from "../ui/dialog";
 export default function LoginForm() {
   const form = useForm({
     resolver: zodResolver(logInFormSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   function onSubmit(data) {
@@ -24,7 +28,7 @@ export default function LoginForm() {
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
           <FormField
             control={form.control}
             name="email"

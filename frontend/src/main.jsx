@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
 import RootLayout from "./layouts/RootLayout";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -8,6 +9,7 @@ import AIBot from "./pages/AIBot";
 import BusinessList from "./pages/BusinessList";
 import Business, { loader as BusinessLoader } from "./pages/Business";
 import BusinessEditForm from "./pages/BusinessEditForm";
+import store from "./store/store";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -46,6 +48,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Button } from "../ui/button";
-import AuthButton from "./AuthButton";
+import AuthButton from "../dialogs/AuthButton";
+import Otp from "../dialogs/Otp";
 
 export default function NavLinks() {
   return (
@@ -35,6 +36,7 @@ export default function NavLinks() {
       </li>
       <li>
         <AuthButton />
+        <Otp />
       </li>
     </ul>
   );

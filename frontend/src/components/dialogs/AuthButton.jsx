@@ -1,30 +1,31 @@
-import { useState } from "react";
-import useMediaQuery from "@/hooks/useMediaQuery";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
-  DialogClose,
   DialogTrigger,
   DialogTitle,
 } from "../ui/dialog";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import { Button } from "../ui/button";
 import RegisterForm from "../forms/RegisterForm";
 import LoginForm from "../forms/LoginForm";
 
 export default function AuthButton() {
+  const authDialogStatus = useSelector((state) => state.authStatus.value);
   const [isRegisterForm, setRegisterForm] = useState(true);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (authDialogStatus === "Register") {
+      setOpen(true);
+    } else if (authDialogStatus === "VerifyEmail") {
+      setOpen(false);
+    }
+  }, [authDialogStatus]);
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="shadow">Register</Button>
       </DialogTrigger>

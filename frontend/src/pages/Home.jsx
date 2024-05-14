@@ -5,7 +5,7 @@ import AboutBizGuide360 from "@/components/sections/AboutBizGuide360";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-32">
       <Hero />
       <Features />
       <AboutAI />
