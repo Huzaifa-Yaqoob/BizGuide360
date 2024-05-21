@@ -13,13 +13,13 @@ export default function Otp() {
   useEffect(() => {
     if (authDialogStatus === "VerifyEmail") {
       setOpen(true);
-    } else if (authDialogStatus === "Register") {
+    } else {
       setOpen(false);
     }
   }, [authDialogStatus]);
 
   return (
-    <Dialog open={true} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="h3 text-center">Verify Email</DialogTitle>

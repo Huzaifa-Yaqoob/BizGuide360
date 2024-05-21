@@ -19,7 +19,7 @@ export default function AuthButton() {
   useEffect(() => {
     if (authDialogStatus === "Register") {
       setOpen(true);
-    } else if (authDialogStatus === "VerifyEmail") {
+    } else {
       setOpen(false);
     }
   }, [authDialogStatus]);

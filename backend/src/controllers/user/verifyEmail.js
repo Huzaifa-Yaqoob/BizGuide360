@@ -3,17 +3,18 @@ const User = require("../../database/models/User");
 const OTP = require("../../database/models/OTP");
 const { generateToken } = require("../../helpers/jwt");
 const errorHandler = require("../../helpers/errorHandler");
+const filterUserData = require("../../helpers/filterUserData");
 
 async function verifyEmail(req, res) {
   try {
-    const { email: mail, otp } = req.body;
-    if (!mail || !otp) {
+    const { email, otp } = req.body;
+    if (!email || !otp) {
       throw new Error("MissingField");
     }
     let userInfo = await OTP.find({
-      email: mail,
+      email,
       expiredAt: { $gt: new Date() },
-    });
+    }).sort({ createdAt: -1 });
     if (userInfo.length <= 0) {
       // error for otp expires
       throw new Error("OTPExpires");
@@ -23,16 +24,13 @@ async function verifyEmail(req, res) {
     if (!(await bcrypt.compare(otp, userInfo.otp))) {
       throw new Error("IncorrectOTP");
     }
-    const { _id, username, email, role, avatarUrl } = await new User({
+    const user = await new User({
       username: userInfo.username,
       email: userInfo.email,
       password: userInfo.password,
     }).save();
-    await OTP.deleteMany({ email });
-    res.json({
-      token: generateToken({ _id, role }),
-      userData: { username, email, avatarUrl, role },
-    });
+    await OTP.deleteMany({ email: user.email });
+    res.json(filterUserData(user));
   } catch (error) {
     console.log(error, "verifyEmail.js");
     const errRes = customErrorHandler(error);

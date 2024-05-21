@@ -2,13 +2,12 @@ const bcrypt = require("bcrypt");
 const User = require("../../database/models/User");
 const errorHandler = require("../../helpers/errorHandler");
 const { generateToken } = require("../../helpers/jwt");
+const filterUserData = require("../../helpers/filterUserData");
 
 async function logIn(req, res) {
   try {
-    let token = {},
-      userData = {};
     const { email: mail, password } = req.body;
-    const user = await User.findOne({ email: mail, verified: true });
+    const user = await User.findOne({ email: mail });
     if (!user) {
       // error for email not found
       throw new Error("Email00");
@@ -17,11 +16,7 @@ async function logIn(req, res) {
       // error for incorrect password
       throw new Error("Password00");
     }
-    let data = await user.save();
-    let { _id, email, username, avatarUrl, role } = data;
-    userData = { email, username, avatarUrl, role };
-    token = generateToken({ _id, role });
-    res.json({ token, userData });
+    res.json(filterUserData(user));
   } catch (error) {
     console.log(error, "login.js");
     const errRes = customErrorHandler(error);
@@ -35,7 +30,7 @@ function customErrorHandler(error) {
       status: 400,
       errors: {
         msg: "Invalid Input",
-        password: "Email not found",
+        email: "Email not found",
       },
     };
   }

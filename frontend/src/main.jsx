@@ -10,6 +10,7 @@ import BusinessList from "./pages/BusinessList";
 import Business, { loader as BusinessLoader } from "./pages/Business";
 import BusinessEditForm from "./pages/BusinessEditForm";
 import store from "./store/store";
+import { Toaster } from "@/components/ui/toaster";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -50,6 +51,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
+      <Toaster />
     </Provider>
   </React.StrictMode>
 );

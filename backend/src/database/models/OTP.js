@@ -29,6 +29,8 @@ const OTPSchema = new Schema(
     otp: {
       type: String,
       required: true,
+      minlength: 6,
+      maxlength: 6,
     },
     expiredAt: {
       type: Date,

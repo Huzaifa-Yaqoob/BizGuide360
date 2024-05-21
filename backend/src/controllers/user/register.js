@@ -8,19 +8,22 @@ const { sendOTP, generateOTP } = require("../../helpers/otp");
 async function register(req, res) {
   try {
     const { username, email, password } = trimInputs(req.body);
+
+    // checking if password is valid
     if (!verifyPassword(password)) {
       throw new Error("Invalid Password");
     }
-    // creating newUser to validate it
-    const newUser = new User({ username, email, password });
-    // validating userData
-    if ((await newUser.validate()) === undefined) {
+
+    // checking if user already exists
+    if (!(await User.find({ email })).length === 0) {
+      throw new Error("Email_Exists");
+    } else {
       const otp = generateOTP();
       // saving userData in otp schema
-      const userOTP = await new OTP({ username, email, password, otp }).save();
+      await new OTP({ username, email, password, otp }).save();
       sendOTP(email, otp);
+      res.json({ email, status: "pending" });
     }
-    res.json({ email, status: "pending" });
   } catch (error) {
     console.log(error, "register.js");
     const errRes = customErrorHandler(error);
@@ -38,7 +41,7 @@ function customErrorHandler(error) {
       },
     };
   }
-  if (error.code === 11000) {
+  if (error.message === "Email_Exists") {
     return {
       status: 400,
       errors: {

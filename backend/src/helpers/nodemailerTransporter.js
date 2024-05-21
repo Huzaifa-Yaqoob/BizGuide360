@@ -11,6 +11,10 @@ const transporter = nodemailer.createTransport({
     user: email,
     pass: password,
   },
+  headers: {
+    "X-No-Archive": true,
+    Precedence: "bulk",
+  },
 });
 
 module.exports = transporter;

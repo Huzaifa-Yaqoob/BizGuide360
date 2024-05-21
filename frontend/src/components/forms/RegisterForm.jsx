@@ -19,11 +19,12 @@ import useRegister from "@/hooks/useRegister";
 import { ButtonLoading } from "../common/ButtonLoading";
 import { reset, addValues } from "@/store/states/registerForm";
 import isEmptyObject from "@/lib/isEmptyObject";
+import ErrorMessage from "../common/ErrorMessage";
 
 export default function RegisterForm() {
   const formData = useSelector((state) => state.registerForm.value);
   const dispatch = useDispatch();
-  const { isLoading, error, register } = useRegister();
+  const { isLoading, error, register, resetErrors } = useRegister();
 
   const form = useForm({
     resolver: zodResolver(registerFormSchema),
@@ -42,13 +43,28 @@ export default function RegisterForm() {
     }
   }, [formData]);
 
+  useEffect(() => {
+    if (error.email) {
+      form.setError("email", { message: error.email });
+    }
+    if (error.username) {
+      form.setError("username", { message: error.username });
+    }
+    if (error.password) {
+      form.setError("password", { message: error.password });
+    }
+  }, [error]);
+
   async function onSubmit(data) {
     dispatch(addValues(data));
     await register(data);
   }
 
   return (
-    <div>
+    <div className="space-y-2">
+      <>
+        {!isEmptyObject(error) && error.msg && <ErrorMessage msg={error.msg} />}
+      </>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
           <FormField
@@ -93,13 +109,14 @@ export default function RegisterForm() {
               </FormItem>
             )}
           />
-          <DialogFooter>
+          <DialogFooter className="py-2">
             <Button
               type="button"
               variant={"outline"}
               className="shadow w-full"
               onClick={() => {
                 form.reset();
+                resetErrors();
                 dispatch(reset());
               }}
             >
