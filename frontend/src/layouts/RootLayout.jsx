@@ -15,7 +15,7 @@ export default function RootLayout() {
   const token = localStorage.getItem("token");
   useEffect(() => {
     (async () => {
-      if (token && status !== "") {
+      if (token && status === "") {
         await verifyToken(token);
       }
     })();
@@ -42,9 +42,7 @@ export default function RootLayout() {
   return (
     <div className="paragraph flex flex-col min-h-svh">
       <Navbar />
-      <div className="flex-grow">
-        <Outlet />
-      </div>
+      <Outlet />
       <Footer />
     </div>
   );
