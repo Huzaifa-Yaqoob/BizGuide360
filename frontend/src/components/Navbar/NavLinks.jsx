@@ -19,7 +19,7 @@ export default function NavLinks() {
                 isPending
                   ? "text-muted"
                   : isActive
-                  ? "text-primary underline underline-offset-4"
+                  ? "text-primary underline underline-offset-4 md:no-underline md:rounded-full md:border md:border-primary"
                   : ""
               }`
             }

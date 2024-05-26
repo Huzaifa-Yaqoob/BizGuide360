@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function MyBusinesses() {
-  return <div>MyBusinesses</div>;
+  return <div className="">MyBusinesses</div>;
 }

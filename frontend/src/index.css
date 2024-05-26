@@ -41,10 +41,10 @@
 
 @layer base {
   * {
-    @apply border-border font-raleway;
+    @apply border-border font-raleway box-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground box-border;
   }
   .h1 {
     @apply text-h1FontSize font-semibold;

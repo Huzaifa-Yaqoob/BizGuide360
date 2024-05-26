@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function BusinessList() {
-  return <div>Business List</div>;
+  return <div className="flex-grow">Business List</div>;
 }

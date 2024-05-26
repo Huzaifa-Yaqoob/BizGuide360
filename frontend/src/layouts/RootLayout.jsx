@@ -1,11 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import useVerifyToken from "@/hooks/useVerifyToken";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import isEmptyObject from "@/lib/isEmptyObject";
-import { useSelector } from "react-redux";
 
 export default function RootLayout() {
   const { status } = useSelector((state) => state.userData);

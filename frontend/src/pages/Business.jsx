@@ -8,5 +8,5 @@ export function loader({ params }) {
 export default function Business() {
   const { businessId } = useLoaderData();
   console.log(businessId);
-  return <div>Business </div>;
+  return <div className="flex-grow">Business </div>;
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -12,17 +13,20 @@ import RegisterForm from "../forms/RegisterForm";
 import LoginForm from "../forms/LoginForm";
 
 export default function AuthButton() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const authDialogStatus = useSelector((state) => state.authStatus.value);
   const [isRegisterForm, setRegisterForm] = useState(true);
   const [open, setOpen] = useState(false);
 
+  const login = searchParams.get("login");
+
   useEffect(() => {
-    if (authDialogStatus === "Register") {
+    if (authDialogStatus === "Register" || login === "false") {
       setOpen(true);
     } else {
       setOpen(false);
     }
-  }, [authDialogStatus]);
+  }, [authDialogStatus, login]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
