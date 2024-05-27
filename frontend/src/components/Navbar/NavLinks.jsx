@@ -55,7 +55,7 @@ export default function NavLinks() {
       </li>
       <li className="order-1">
         <NavLink
-          to="/profile"
+          to="/ai-bot"
           className={({ isActive, isPending }) =>
             `flex items-center gap-2  + ${
               isPending

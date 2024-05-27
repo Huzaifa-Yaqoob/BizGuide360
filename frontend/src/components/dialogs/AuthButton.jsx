@@ -17,8 +17,7 @@ export default function AuthButton() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    console.log("bb");
-    if (authDialogStatus === "Register") {
+    if (authDialogStatus === "Register" || authDialogStatus === "Register2") {
       setOpen(true);
     } else {
       setOpen(false);

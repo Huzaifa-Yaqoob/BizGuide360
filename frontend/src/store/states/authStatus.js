@@ -9,6 +9,9 @@ export const authStatus = createSlice({
     openRegister: (state) => {
       state.value = "Register";
     },
+    openRegister2: (state) => {
+      state.value = "Register2";
+    },
     openVerifyEmail: (state) => {
       state.value = "VerifyEmail";
     },
@@ -18,6 +21,7 @@ export const authStatus = createSlice({
   },
 });
 
-export const { openRegister, openVerifyEmail, reset } = authStatus.actions;
+export const { openRegister, openRegister2, openVerifyEmail, reset } =
+  authStatus.actions;
 
 export default authStatus.reducer;

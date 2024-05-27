@@ -1,19 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import useVerifyToken from "@/hooks/useVerifyToken";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import isEmptyObject from "@/lib/isEmptyObject";
-import { openRegister, reset } from "@/store/states/authStatus";
 
 export default function RootLayout() {
-  const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { isLoggedIn } = useSelector((state) => state.userData);
   const { toast } = useToast();
   const { isLoading, error, verifyToken } = useVerifyToken();
 
@@ -35,17 +28,6 @@ export default function RootLayout() {
       });
     }
   }, [error]);
-
-  const login = searchParams.get("login");
-
-  useEffect(() => {
-    if (isLoggedIn && login) {
-      searchParams.delete("login");
-      setSearchParams(searchParams);
-    } else if (!isLoggedIn && login === "false") {
-      dispatch(openRegister());
-    }
-  }, [login, isLoggedIn]);
 
   if (isLoading) {
     return (
