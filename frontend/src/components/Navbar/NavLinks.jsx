@@ -10,8 +10,8 @@ export default function NavLinks() {
 
   return (
     <ul className="flex flex-col md:flex-row items-center gap-8">
-      <li className={user.status === "LOGIN" ? "md:order-3" : "order-3"}>
-        {user.status === "LOGIN" ? (
+      <li className={user.isLoggedIn ? "md:order-3" : "order-3"}>
+        {user.isLoggedIn ? (
           <NavLink
             to="/profile"
             className={({ isActive, isPending }) =>
@@ -55,7 +55,7 @@ export default function NavLinks() {
       </li>
       <li className="order-1">
         <NavLink
-          to="/ai-bot"
+          to="/profile"
           className={({ isActive, isPending }) =>
             `flex items-center gap-2  + ${
               isPending

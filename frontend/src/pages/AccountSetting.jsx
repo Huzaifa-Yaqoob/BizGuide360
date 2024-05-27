@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { logOut } from "@/store/states/userData";
 import DeleteAccount from "@/components/dialogs/DeleteAccount";
+import EditUsername from "@/components/dialogs/EditUsername";
 
 export default function AccountSetting() {
   const dispatch = useDispatch();
@@ -23,9 +24,12 @@ export default function AccountSetting() {
             <Mail />
             {user ? user.email : ""}
           </div>
-          <div className="w-full bg-primary-foreground py-1 px-4 rounded flex items-start gap-2">
-            <User />
-            {user ? user.username : ""}
+          <div className="w-full bg-primary-foreground py-1 px-4 rounded flex justify-between items-center">
+            <div className="flex items-start gap-2">
+              <User />
+              {user ? user.username : ""}
+            </div>
+            <EditUsername />
           </div>
           <div className="flex justify-between">
             <Button

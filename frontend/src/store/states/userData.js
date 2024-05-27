@@ -4,16 +4,16 @@ export const userData = createSlice({
   name: "UserData",
   initialState: {
     data: {},
-    status: "",
+    isLoggedIn: false,
   },
   reducers: {
     logIn: (state, action) => {
       state.data = action.payload;
-      state.status = "LOGIN";
+      state.isLoggedIn = true;
     },
     logOut: (state) => {
       state.data = {};
-      state.status = "";
+      state.isLoggedIn = false;
     },
     updateName: (state, action) => {
       state.data = {
