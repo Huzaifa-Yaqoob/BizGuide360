@@ -3,7 +3,6 @@ const errorHandler = require("../helpers/errorHandler");
 
 async function userGuard(req, res, next) {
   try {
-    console.log("req.body1");
     const authHeader = req.headers["authorization"];
     if (!authHeader) {
       throw new Error("INVALID_ACCESS");
