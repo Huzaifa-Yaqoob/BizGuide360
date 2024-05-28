@@ -14,30 +14,9 @@ async function verifyToken(req, res) {
     res.json(filterUserData(user, token));
   } catch (error) {
     console.log(error, "verifyToken");
-    console.log(error.message);
-    const errRes = customErrorHandler(error);
+    const errRes = errorHandler(error);
     res.status(errRes.status).json(errRes.errors);
   }
-}
-
-function customErrorHandler(error) {
-  if (error.message === "invalid token") {
-    return {
-      status: 401,
-      errors: {
-        msg: "Token is invalid",
-      },
-    };
-  }
-  if (error.message === "jwt expired") {
-    return {
-      status: 401,
-      errors: {
-        msg: "Your token has expired log in again",
-      },
-    };
-  }
-  return errorHandler(error);
 }
 
 module.exports = verifyToken;
