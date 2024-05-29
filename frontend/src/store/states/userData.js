@@ -4,6 +4,7 @@ export const userData = createSlice({
   name: "UserData",
   initialState: {
     data: {},
+    // give it a string value at start because rootLayout component will decide this value and it solves a bug where every time user refreshes any page even he is logged in is redirected to
     isLoggedIn: false,
   },
   reducers: {
@@ -16,9 +17,14 @@ export const userData = createSlice({
       state.isLoggedIn = false;
     },
     updateName: (state, action) => {
+      console.log(action.payload, "as");
+      console.log(state.data, "state.data");
       state.data = {
         ...state.data,
-        ...action.payload,
+        userData: {
+          ...state.data.userData,
+          username: action.payload,
+        },
       };
     },
   },

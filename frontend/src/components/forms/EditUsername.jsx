@@ -12,10 +12,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import { ButtonLoading } from "../common/ButtonLoading";
+import ErrorMessage from "../common/ErrorMessage";
+import useEditUsername from "@/hooks/useEditUsername";
 import { editUsernameFormSchema } from "@/lib/zod/updateUseData";
+import isEmptyObject from "@/lib/isEmptyObject";
 
-export default function EditUsername() {
+export default function EditUsername({ setIsOpen }) {
+  const { isLoading, error, editUsername } = useEditUsername();
   const { userData: data } = useSelector((state) => state.userData.data);
   const form = useForm({
     resolver: zodResolver(editUsernameFormSchema),
@@ -24,12 +28,13 @@ export default function EditUsername() {
     },
   });
 
-  console.log(data);
-
-  function onSubmit(values) {
+  async function onSubmit(values) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const ok = await editUsername(values);
+    if (ok) {
+      setIsOpen(false);
+    }
   }
 
   function reset() {
@@ -39,6 +44,7 @@ export default function EditUsername() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        {!isEmptyObject(error) && <ErrorMessage msg={error.msg} />}
         <FormField
           control={form.control}
           name="username"
@@ -56,7 +62,9 @@ export default function EditUsername() {
           <Button type="button" onClick={reset} variant="outline">
             Reset
           </Button>
-          <Button type="submit">Edit</Button>
+          <ButtonLoading type="submit" isLoading={isLoading}>
+            Ok
+          </ButtonLoading>
         </DialogFooter>
       </form>
     </Form>

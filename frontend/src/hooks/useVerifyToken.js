@@ -17,6 +17,7 @@ export default function useVerifyToken() {
     try {
       const res = await userInstance.post("/verify-token/", { token });
       dispatch(logIn(res.data));
+      console.log("mm");
       return { ok: true };
     } catch (error) {
       console.log(error, "useVerifyToken");

@@ -5,15 +5,17 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import isEmptyObject from "@/lib/isEmptyObject";
+import { useSelector } from "react-redux";
 
 export default function RootLayout() {
+  const isLoggedIn = useSelector((state) => state.userData.isLoggedIn);
   const { toast } = useToast();
   const { isLoading, error, verifyToken } = useVerifyToken();
 
   const token = localStorage.getItem("token");
   useEffect(() => {
     (async () => {
-      if (token && status === "") {
+      if (token && !isLoggedIn) {
         await verifyToken(token);
       }
     })();

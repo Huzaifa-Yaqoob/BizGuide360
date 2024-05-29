@@ -20,10 +20,10 @@ export default function useLogIn() {
       const res = await userInstance.post("/login", data);
       dispatch(loggIn(res.data));
       storeInLocal(res.data);
+      return res;
     } catch (error) {
       console.log(error, "useLogIn");
       setError(errorHandler(error));
-      return res;
     } finally {
       setIsLoading(false);
     }

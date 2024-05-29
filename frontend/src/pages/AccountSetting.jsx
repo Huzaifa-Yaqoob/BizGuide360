@@ -9,7 +9,7 @@ import EditUsername from "@/components/dialogs/EditUsername";
 export default function AccountSetting() {
   const dispatch = useDispatch();
   const { userData: user } = useSelector((state) => state.userData.data);
-  console.log(user);
+
   return (
     <div className="flex justify-center items-center h-full">
       <main className="bg-card flex flex-col items-center p-4 gap-8 rounded shadow-md">

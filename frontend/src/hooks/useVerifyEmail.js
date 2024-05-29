@@ -27,8 +27,8 @@ export default function useVerifyEmail() {
         title: "Login Successful",
         description: res.data.userData.username + " Welcome to BizGuide360",
       });
-      dispatch(reset());
-      dispatch(resett());
+      dispatch(reset()); //reset auth dialogue status
+      dispatch(resett()); //reset register form data
       dispatch(logIn(res.data));
       storeInLocal(res.data);
     } catch (error) {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,8 +10,10 @@ import { Button } from "../ui/button";
 import EditUserNameForm from "../forms/EditUsername";
 
 export default function EditUsername() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant="link"
@@ -25,7 +28,7 @@ export default function EditUsername() {
         <DialogHeader>
           <DialogTitle className="h4">Change Username</DialogTitle>
         </DialogHeader>
-        <EditUserNameForm />
+        <EditUserNameForm setIsOpen={setIsOpen} />
       </DialogContent>
     </Dialog>
   );
