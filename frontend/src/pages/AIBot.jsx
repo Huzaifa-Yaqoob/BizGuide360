@@ -23,7 +23,7 @@ export default function AIBot() {
     }
   }, [isLoggedIn]);
 
-  console.log(isLoggedIn);
+  console.log("b");
 
   if (!isLoggedIn) {
     return <Navigate to="/" replace />;

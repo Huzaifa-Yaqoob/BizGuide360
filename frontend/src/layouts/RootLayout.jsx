@@ -5,21 +5,18 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import isEmptyObject from "@/lib/isEmptyObject";
-import { useSelector } from "react-redux";
+import Spinner from "@/components/common/Spinner";
 
 export default function RootLayout() {
-  const isLoggedIn = useSelector((state) => state.userData.isLoggedIn);
   const { toast } = useToast();
   const { isLoading, error, verifyToken } = useVerifyToken();
 
   const token = localStorage.getItem("token");
   useEffect(() => {
     (async () => {
-      if (token && !isLoggedIn) {
-        await verifyToken(token);
-      }
+      await verifyToken(token);
     })();
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     if (!isEmptyObject(error)) {
@@ -31,19 +28,17 @@ export default function RootLayout() {
     }
   }, [error]);
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        Loading...
-      </div>
-    );
-  }
-
   return (
     <div className="paragraph flex flex-col min-h-svh">
-      <Navbar />
-      <Outlet />
-      <Footer />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </>
+      )}
     </div>
   );
 }

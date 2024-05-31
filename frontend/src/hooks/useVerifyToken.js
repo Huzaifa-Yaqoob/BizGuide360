@@ -1,23 +1,26 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { createMainInstance } from "@/lib/axios";
 import { errorHandler } from "@/lib/errorHandler";
-import { useDispatch } from "react-redux";
 import { logIn, logOut } from "@/store/states/userData";
 
 export default function useVerifyToken() {
+  const isLoggedIn = useSelector((state) => state.userData.isLoggedIn);
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState({});
 
   const userInstance = createMainInstance();
 
-  async function verifyToken(token) {
+  const token = localStorage.getItem("token");
+  async function verifyToken() {
     setError({});
-    setIsLoading(true);
     try {
+      if (isLoggedIn || !token) {
+        return { ok: true };
+      }
       const res = await userInstance.post("/verify-token/", { token });
       dispatch(logIn(res.data));
-      console.log("mm");
       return { ok: true };
     } catch (error) {
       console.log(error, "useVerifyToken");
@@ -26,6 +29,7 @@ export default function useVerifyToken() {
       setError(errorHandler(error));
     } finally {
       setIsLoading(false);
+      console.log("as");
     }
   }
 

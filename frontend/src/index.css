@@ -105,3 +105,49 @@
 .heroImage {
   background-image: url("/Buildings.jpg");
 }
+
+.blob {
+  width: 89.6px;
+  height: 89.6px;
+  border: 11.2px solid #0000;
+  padding: 5.6px;
+  background: radial-gradient(farthest-side, hsl(var(--primary)) 98%, #0000) 0 0/22.4px
+      22.4px no-repeat,
+    conic-gradient(
+        from 90deg at 11.2px 11.2px,
+        #0000 90deg,
+        hsl(var(--primary)) 0
+      )
+      content-box,
+    conic-gradient(
+        from -90deg at 44.8px 44.8px,
+        #0000 90deg,
+        hsl(var(--primary)) 0
+      )
+      content-box,
+    #fff;
+  filter: blur(3.4px) contrast(10);
+  animation: blob-a4ofes 2s infinite;
+}
+
+@keyframes blob-a4ofes {
+  0% {
+    background-position: 0 0;
+  }
+
+  25% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: 100% 100%;
+  }
+
+  75% {
+    background-position: 0 100%;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}

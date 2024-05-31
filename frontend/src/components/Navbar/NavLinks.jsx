@@ -15,12 +15,12 @@ export default function NavLinks() {
           <NavLink
             to="/profile"
             className={({ isActive, isPending }) =>
-              `flex items-center gap-2  + ${
+              `flex items-center gap-2 bg-transparent transition-shadow duration-500 rounded-full + ${
                 isPending
                   ? "text-muted"
                   : isActive
-                  ? "text-primary underline underline-offset-4 md:no-underline md:rounded-full md:border md:border-primary"
-                  : ""
+                  ? "text-primary underline underline-offset-4 md:no-underline md:rounded-full shadow-lg shadow-primary"
+                  : "shadow-none"
               }`
             }
           >

@@ -35,8 +35,9 @@ export default function AccountSetting() {
             <Button
               type="button"
               onClick={() => {
-                dispatch(logOut());
                 localStorage.removeItem("token");
+                dispatch(logOut());
+                console.log("logged out");
               }}
               variant="destructive"
               size="sm"
