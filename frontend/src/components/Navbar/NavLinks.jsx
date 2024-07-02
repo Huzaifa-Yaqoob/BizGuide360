@@ -19,14 +19,16 @@ export default function NavLinks() {
                 isPending
                   ? "text-muted"
                   : isActive
-                  ? "text-primary underline underline-offset-4 md:no-underline md:rounded-full shadow-lg shadow-primary"
+                  ? "text-primary underline underline-offset-4 md:no-underline md:rounded-full shadow-md shadow-primary"
                   : "shadow-none"
               }`
             }
           >
             <Avatar className="w-8 h-8">
-              <AvatarImage src="/defaultAvatar.jpeg" />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarImage src={user.data.userData.avatar} />
+              <AvatarFallback>
+                {user ? user.data.userData.username.charAt(0) : "B"}
+              </AvatarFallback>
             </Avatar>
             <span className="md:hidden">Profile</span>
           </NavLink>

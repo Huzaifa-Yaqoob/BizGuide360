@@ -106,6 +106,7 @@
   background-image: url("/Buildings.jpg");
 }
 
+/* spinner start*/
 .blob {
   width: 89.6px;
   height: 89.6px;
@@ -151,3 +152,5 @@
     background-position: 0 0;
   }
 }
+
+/* spinner end */

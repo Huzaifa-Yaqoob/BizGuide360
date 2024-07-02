@@ -30,11 +30,10 @@ export default function ProfileLayout() {
   }
 
   return (
-    <div className="md:flex gap-4 flex-grow">
+    <div className="flex flex-col md:flex-row gap-4 flex-grow">
       <ProfileSidePanel />
-      <div className="flex-grow">
-        <Outlet />
-      </div>
+      {/* must include flex-grow to direct children in Outlet */}
+      <Outlet />
     </div>
   );
 }

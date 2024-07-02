@@ -15,11 +15,13 @@ export default function useVerifyToken() {
   const token = localStorage.getItem("token");
   async function verifyToken() {
     setError({});
+    setIsLoading(true);
     try {
       if (isLoggedIn || !token) {
         return { ok: true };
       }
       const res = await userInstance.post("/verify-token/", { token });
+      console.log(res);
       dispatch(logIn(res.data));
       return { ok: true };
     } catch (error) {
@@ -29,7 +31,6 @@ export default function useVerifyToken() {
       setError(errorHandler(error));
     } finally {
       setIsLoading(false);
-      console.log("as");
     }
   }
 

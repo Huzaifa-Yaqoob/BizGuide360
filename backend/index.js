@@ -1,5 +1,6 @@
-const express = require("express");
 const cors = require("cors");
+const path = require("path");
+const express = require("express");
 const connectDB = require("./src/database/db");
 const User = require("./src/routes/user");
 const Business = require("./src/routes/business");
@@ -13,6 +14,8 @@ const frontEndOrigin = process.env.FRONTEND_URL;
 const app = express();
 
 app.use(cors({ origin: frontEndOrigin }));
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 connectDB()
   .then(() => {

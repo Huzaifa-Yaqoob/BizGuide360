@@ -31,5 +31,9 @@ export default function useEditUsername() {
     }
   }
 
-  return { isLoading, error, editUsername };
+  function resetError() {
+    setError({});
+  }
+
+  return { isLoading, error, editUsername, resetError };
 }

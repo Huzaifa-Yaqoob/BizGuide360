@@ -32,7 +32,7 @@ const UserSchema = new Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    avatarUrl: { type: String },
+    avatar: { type: String },
     businesses: {
       type: [Schema.Types.ObjectId],
       ref: "Business",

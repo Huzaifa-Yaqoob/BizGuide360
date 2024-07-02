@@ -5,20 +5,26 @@ import { Button } from "@/components/ui/button";
 import { logOut } from "@/store/states/userData";
 import DeleteAccount from "@/components/dialogs/DeleteAccount";
 import EditUsername from "@/components/dialogs/EditUsername";
+import ChangeAvatar from "@/components/dialogs/ChangeAvatar";
 
 export default function AccountSetting() {
   const dispatch = useDispatch();
   const { userData: user } = useSelector((state) => state.userData.data);
 
   return (
-    <div className="flex justify-center items-center h-full">
-      <main className="bg-card flex flex-col items-center p-4 gap-8 rounded shadow-md">
-        <Avatar className="w-24 h-24">
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback className="bg-secondary">
-            {user ? user.username.charAt(0) : ""}
-          </AvatarFallback>
-        </Avatar>
+    <div className="flex flex-grow justify-center items-center ">
+      <main className="bg-card flex flex-col md:flex-row items-center p-4 gap-8 rounded shadow-md">
+        <div className="relative">
+          <span className="absolute bottom-0 right-0 z-10">
+            <ChangeAvatar />
+          </span>
+          <Avatar className="w-24 h-24">
+            <AvatarImage src={user.avatar} />
+            <AvatarFallback className="bg-secondary">
+              {user ? user.username.charAt(0) : "B"}
+            </AvatarFallback>
+          </Avatar>
+        </div>
         <div className="space-y-4 min-w-96">
           <div className="w-full bg-primary-foreground py-1 px-4 rounded flex items-start gap-2">
             <Mail />

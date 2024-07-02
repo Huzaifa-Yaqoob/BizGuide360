@@ -7,11 +7,11 @@ async function verifyToken(req, res) {
   try {
     const { token } = req.body;
     if (!token) {
-      res.json({});
+      return res.json({});
     }
     const decodedData = decodeToken(token);
     const user = await User.findById(decodedData._id);
-    res.json(filterUserData(user, token));
+    return res.json(filterUserData(user, token));
   } catch (error) {
     console.log(error, "verifyToken");
     const errRes = errorHandler(error);
