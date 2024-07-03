@@ -18,9 +18,15 @@ import MyDropZone from "../common/MyDropZone";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import getFormData from "@/lib/getFormData";
 import useChangeAvatar from "@/hooks/useChangeAvatar";
+import useRemoveAvatar from "@/hooks/useRemoveAvatar";
 
 export default function ChangeAvatarForm() {
   const { isLoading, error, changeAvatar } = useChangeAvatar();
+  const {
+    isLoading: isLoading2,
+    error: error2,
+    removeAvatar,
+  } = useRemoveAvatar();
   const { userData: user } = useSelector((state) => state.userData.data);
   const [fileData, setFileSata] = useState({
     filePreview: user.avatar,
@@ -38,14 +44,15 @@ export default function ChangeAvatarForm() {
     await changeAvatar(getFormData(values));
   }
 
-  async function onRemove(values) {
-    console.log(values);
+  async function onRemove() {
+    await removeAvatar();
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         {!isEmptyObject(error) && <ErrorMessage msg={error.msg} />}
+        {!isEmptyObject(error2) && <ErrorMessage msg={error2.msg} />}
         <FormField
           control={form.control}
           name="avatar"
@@ -70,7 +77,12 @@ export default function ChangeAvatarForm() {
           )}
         />
         <DialogFooter>
-          <ButtonLoading type="submit" variant="destructive" isLoading={false}>
+          <ButtonLoading
+            type="button"
+            variant="destructive"
+            isLoading={isLoading2}
+            onClick={onRemove}
+          >
             Remove
           </ButtonLoading>
           <ButtonLoading type="submit" isLoading={isLoading}>

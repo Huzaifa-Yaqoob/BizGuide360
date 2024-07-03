@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 import useVerifyToken from "@/hooks/useVerifyToken";
-import Navbar from "@/components/Navbar/Navbar";
+import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import { useToast } from "@/components/ui/use-toast";
 import isEmptyObject from "@/lib/isEmptyObject";

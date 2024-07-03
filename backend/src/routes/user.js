@@ -7,6 +7,7 @@ const resendOtp = require("../controllers/user/resendOtp");
 const verifyToken = require("../controllers/user/verifyToken");
 const changeUsername = require("../controllers/user/changeUsername");
 const changeAvatar = require("../controllers/user/changeAvatar");
+const removeAvatar = require("../controllers/user/removeAvatar");
 const userGuard = require("../middlewares/userGuard");
 
 const router = express.Router();
@@ -27,5 +28,7 @@ router.post("/verify-token/", verifyToken);
 router.patch("/change-username/", userGuard, changeUsername);
 
 router.patch("/change-avatar/", userGuard, changeAvatar);
+
+router.patch("/remove-avatar/", userGuard, removeAvatar);
 
 module.exports = router;
