@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { addCategoryFormSchema } from "@/lib/zod/categorySchema";
+import { addAreaFormSchema } from "@/lib/zod/areaSchema";
 import {
   Form,
   FormControl,
@@ -15,31 +15,27 @@ import { ButtonLoading } from "../common/ButtonLoading";
 import { DialogFooter } from "../ui/dialog";
 import isEmptyObject from "@/lib/isEmptyObject";
 import ErrorMessage from "../common/ErrorMessage";
-import useAddCategory from "@/hooks/useAddCategory";
+import useAddArea from "@/hooks/useAddArea";
 import { Button } from "../ui/button";
 
-export default function AddCategoryForm() {
-  const { isLoading, error, addCategory, resetError } = useAddCategory();
+export default function AddAreaForm() {
+  const { isLoading, error, addArea, resetError } = useAddArea();
   const form = useForm({
-    resolver: zodResolver(addCategoryFormSchema),
+    resolver: zodResolver(addAreaFormSchema),
     defaultValues: {
-      category: "",
+      area: "",
     },
   });
 
   useEffect(() => {
-    if (!isEmptyObject(error) && error.category) {
+    if (!isEmptyObject(error) && error.area) {
       console.log(error.category);
-      form.setError(
-        "category",
-        { message: error.category },
-        { shouldFocus: true }
-      );
+      form.setError("area", { message: error.area }, { shouldFocus: true });
     }
   }, [error]);
 
   async function onSubmit(values) {
-    const ok = await addCategory(values);
+    const ok = await addArea(values);
     if (ok) {
       form.reset();
     }
@@ -56,12 +52,12 @@ export default function AddCategoryForm() {
         {!isEmptyObject(error) && <ErrorMessage msg={error.msg} />}
         <FormField
           control={form.control}
-          name="category"
+          name="area"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category</FormLabel>
+              <FormLabel>Area</FormLabel>
               <FormControl>
-                <Input placeholder="cat" {...field} />
+                <Input placeholder="Area" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
