@@ -12,12 +12,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Children } from "react";
 
 const options = [
-  { id: "1", value: "chocolate", label: "Chocolate" },
-  { id: "2", value: "strawberry", label: "Strawberry" },
-  { id: "3", value: "vanilla", label: "Vanilla" },
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
 ];
 
 const { Control } = components;

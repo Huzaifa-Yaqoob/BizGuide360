@@ -6,12 +6,14 @@ async function removeAvatar(req, res) {
   try {
     const _id = req.userData._id;
     const user = await User.findById(_id);
-    if (user.avatar === "") {
+
+    if (!user.avatar) {
       res.send({ ok: true });
     } else {
       deleteFile(user.avatar);
-      user.avatar = "";
+      user.avatar = undefined;
       await user.save();
+      console.log(user);
       res.send({ ok: true });
     }
   } catch (error) {

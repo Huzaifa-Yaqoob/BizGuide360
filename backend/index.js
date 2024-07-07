@@ -30,6 +30,8 @@ connectDB()
 app.use(express.json());
 app.use("/", User);
 app.use("/business", Business);
+
 app.use("/category", Category);
+
 app.use("/location", Location);
 app.use("/business-claims", BusinessClaim);

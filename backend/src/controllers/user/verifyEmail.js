@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../../database/models/User");
 const OTP = require("../../database/models/OTP");
-const { generateToken } = require("../../helpers/jwt");
 const errorHandler = require("../../helpers/errorHandler");
 const filterUserData = require("../../helpers/filterUserData");
 

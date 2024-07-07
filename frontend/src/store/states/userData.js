@@ -6,7 +6,6 @@ export const userData = createSlice({
     data: {
       avatar: "/defaultAvatar.jpeg",
     },
-    // give it a string value at start because rootLayout component will decide this value and it solves a bug where every time user refreshes any page even he is logged in is redirected to
     isLoggedIn: false,
   },
   reducers: {

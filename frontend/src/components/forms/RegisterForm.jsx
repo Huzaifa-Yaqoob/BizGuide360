@@ -44,8 +44,9 @@ export default function RegisterForm() {
   }, [formData]);
 
   useEffect(() => {
+    if (isEmptyObject(error)) return;
     if (error.email) {
-      form.setError("email", { message: error.email });
+      form.setError("email", { message: error.email }, { shouldFocus: true });
     }
     if (error.username) {
       form.setError("username", { message: error.username });
