@@ -8,8 +8,9 @@ import {
 } from "../ui/dialog";
 import AddCategoryForm from "../forms/AddCategoryForm";
 import AddAreaForm from "../forms/AddAreaForm";
+import AddBusinessForm from "../forms/AddBusinessForm";
 
-export default function AddCategoryOrArea({ type }) {
+export default function AddButton({ type }) {
   console.log(type === "category" && "ass");
   return (
     <Dialog>
@@ -22,7 +23,7 @@ export default function AddCategoryOrArea({ type }) {
         </DialogHeader>
         {type === "category" && <AddCategoryForm />}
         {type === "area" && <AddAreaForm />}
-        {/* {} */}
+        {type === "business" && <AddBusinessForm />}
       </DialogContent>
     </Dialog>
   );
