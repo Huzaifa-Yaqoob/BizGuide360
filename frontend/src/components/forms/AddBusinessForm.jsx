@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import Select, { components } from "react-select";
 import { MapPin, Store } from "lucide-react";
+import { useSelector } from "react-redux";
 import { addBusinessFormSchema } from "@/lib/zod/businessSchema";
 import {
   Form,
@@ -20,15 +21,13 @@ import ErrorMessage from "../common/ErrorMessage";
 import useAddBusiness from "@/hooks/useAddBusiness";
 import { Button } from "../ui/button";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
-
 const { Control } = components;
 
 export default function AddAreaForm() {
+  const [areaOptions, categoryOptions] = useSelector((state) => [
+    state.areas,
+    state.categories,
+  ]);
   const { isLoading, error, addBusiness, resetError } = useAddBusiness();
   const form = useForm({
     resolver: zodResolver(addBusinessFormSchema),
@@ -41,12 +40,22 @@ export default function AddAreaForm() {
 
   useEffect(() => {
     if (!isEmptyObject(error) && error.area) {
-      console.log(error.category);
-      form.setError("area", { message: error.area }, { shouldFocus: true });
+      form.setError("area", { message: error.area });
+    }
+    if (!isEmptyObject(error) && error.category) {
+      form.setError("category", { message: error.category });
+    }
+    if (!isEmptyObject(error) && error.title) {
+      form.setError("title", { message: error.title }, { shouldFocus: true });
     }
   }, [error]);
 
   async function onSubmit(values) {
+    values = {
+      ...values,
+      area: values.area.value,
+      category: values.category.value,
+    };
     const ok = await addBusiness(values);
     if (ok) {
       form.reset();
@@ -83,7 +92,7 @@ export default function AddAreaForm() {
               <FormLabel>Select Category</FormLabel>
               <FormControl>
                 <Select
-                  options={options}
+                  options={categoryOptions}
                   components={{ Control: CustomControlCategory }}
                   placeholder="Category..."
                   unstyled
@@ -119,8 +128,8 @@ export default function AddAreaForm() {
               <FormLabel>Select Area</FormLabel>
               <FormControl>
                 <Select
+                  options={areaOptions}
                   components={{ Control: CustomControlArea }}
-                  options={options}
                   placeholder="Area..."
                   isClearable
                   unstyled

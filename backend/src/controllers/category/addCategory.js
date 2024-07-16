@@ -5,8 +5,12 @@ const trimInputs = require("../../helpers/trimInputs");
 async function addCategory(req, res) {
   try {
     const { category } = trimInputs(req.body);
-    await new Category({ label: category }).save();
-    res.send({ success: true });
+    const newCategory = await new Category({ label: category }).save();
+    res.send({
+      label: newCategory.label,
+      value: newCategory._id,
+      count: newCategory.count,
+    });
   } catch (error) {
     console.log(error, "addCategory");
     const errRes = customErrorHandler(error);

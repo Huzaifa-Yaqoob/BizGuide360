@@ -11,7 +11,6 @@ import AddAreaForm from "../forms/AddAreaForm";
 import AddBusinessForm from "../forms/AddBusinessForm";
 
 export default function AddButton({ type }) {
-  console.log(type === "category" && "ass");
   return (
     <Dialog>
       <DialogTrigger>

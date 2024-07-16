@@ -12,7 +12,6 @@ const BusinessSchema = new Schema(
     title: { type: String, required: true, minlength: 3, maxlength: 75 },
     description: {
       type: String,
-      required: true,
       minlength: 50,
       maxlength: 500,
     },
@@ -117,7 +116,6 @@ const BusinessSchema = new Schema(
     },
     openingTime: {
       type: Date,
-      required: true,
       validate: {
         validator: function (value) {
           // Custom validator to check if the time is in the correct format
@@ -129,7 +127,6 @@ const BusinessSchema = new Schema(
     },
     closingTime: {
       type: Date,
-      required: true,
       validate: {
         validator: function (value) {
           // Custom validator to check if the time is in the correct format
@@ -143,4 +140,4 @@ const BusinessSchema = new Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Business", BusinessSchema);
+module.exports = mongoose.model("Business", BusinessSchema);

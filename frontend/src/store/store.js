@@ -3,6 +3,7 @@ import authStatusReducer from "./states/authStatus";
 import registerFormReducer from "./states/registerForm";
 import userDataReducer from "./states/userData";
 import areasReducer from "./states/areas";
+import categoriesReducer from "./states/categories";
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     registerForm: registerFormReducer,
     userData: userDataReducer,
     areas: areasReducer,
+    categories: categoriesReducer,
   },
 });

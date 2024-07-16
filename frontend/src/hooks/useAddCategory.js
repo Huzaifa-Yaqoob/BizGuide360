@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { errorHandler } from "@/lib/errorHandler";
 import { createMainInstance } from "@/lib/axios";
+import { addCategory } from "@/store/states/categories";
 
 export default function useAddCategory() {
+  const dispatch = useDispatch();
   const { token } = useSelector((state) => state.userData.data);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
@@ -15,10 +17,11 @@ export default function useAddCategory() {
     setError({});
     try {
       const res = await userInstance.post("/category", data);
-      console.log(res.data);
+      console.log(res);
+      // dispatch(addCategory(res.data));
       return true;
     } catch (error) {
-      console.log(error, "useEditUsername");
+      console.log(error, "useAddCategory");
       setError(errorHandler(error));
     } finally {
       setIsLoading(false);

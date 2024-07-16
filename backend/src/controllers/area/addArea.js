@@ -5,8 +5,12 @@ const trimInputs = require("../../helpers/trimInputs");
 async function addArea(req, res) {
   try {
     const { area } = trimInputs(req.body);
-    await new Area({ label: area }).save();
-    res.send({ success: true });
+    const newArea = await new Area({ label: area }).save();
+    res.send({
+      label: newArea.label,
+      value: newArea._id,
+      count: newArea.count,
+    });
   } catch (error) {
     console.log(error, "addArea");
     const errRes = customErrorHandler(error);

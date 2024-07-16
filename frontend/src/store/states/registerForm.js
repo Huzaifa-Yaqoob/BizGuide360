@@ -7,10 +7,10 @@ export const registerForm = createSlice({
   },
   reducers: {
     addValues: (state, action) => {
-      state.value = action.payload;
+      return { ...state, value: action.payload };
     },
     reset: (state) => {
-      state.value = {};
+      return { ...state, value: action.payload };
     },
   },
 });

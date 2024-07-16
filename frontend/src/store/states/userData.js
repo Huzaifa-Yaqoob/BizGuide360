@@ -10,38 +10,42 @@ export const userData = createSlice({
   },
   reducers: {
     logIn: (state, action) => {
-      state.data = {
-        ...action.payload,
-        userData: {
-          ...action.payload.userData,
-          avatar: action.payload.userData.avatar ?? "/defaultAvatar.jpeg",
+      return {
+        ...state,
+        data: {
+          ...action.payload,
+          userData: {
+            ...action.payload.userData,
+            avatar: action.payload.userData.avatar ?? "/defaultAvatar.jpeg",
+          },
         },
+        isLoggedIn: true,
       };
-      state.isLoggedIn = true;
     },
     logOut: (state) => {
-      state.data = {};
-      state.isLoggedIn = false;
+      return { ...state, data: {}, isLoggedIn: false };
     },
     updateName: (state, action) => {
-      console.log(action.payload, "as");
-      console.log(state.data, "state.data");
-      state.data = {
-        ...state.data,
-        userData: {
-          ...state.data.userData,
-          username: action.payload,
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          userData: {
+            ...state.data.userData,
+            username: action.payload,
+          },
         },
       };
     },
     updateAvatar: (state, action) => {
-      console.log(action.payload, "as");
-      console.log(state.data, "state.data");
-      state.data = {
-        ...state.data,
-        userData: {
-          ...state.data.userData,
-          avatar: action.payload,
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          userData: {
+            ...state.data.userData,
+            avatar: action.payload,
+          },
         },
       };
     },

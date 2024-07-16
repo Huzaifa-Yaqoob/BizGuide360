@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { errorHandler } from "@/lib/errorHandler";
 import { createMainInstance } from "@/lib/axios";
+import { addArea } from "@/store/states/areas";
 
 export default function useAddArea() {
+  const dispatch = useDispatch();
   const { token } = useSelector((state) => state.userData.data);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
@@ -15,10 +17,11 @@ export default function useAddArea() {
     setError({});
     try {
       const res = await userInstance.post("/area", data);
-      console.log(res.data);
+      console.log(res);
+      // dispatch(addArea(await res.data));
       return true;
     } catch (error) {
-      console.log(error, "useEditUsername");
+      console.log(error, "useAddArea");
       setError(errorHandler(error));
     } finally {
       setIsLoading(false);

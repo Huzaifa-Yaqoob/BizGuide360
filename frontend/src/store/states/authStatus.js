@@ -7,16 +7,16 @@ export const authStatus = createSlice({
   },
   reducers: {
     openRegister: (state) => {
-      state.value = "Register";
+      return { ...state, value: "Register" };
     },
     openRegister2: (state) => {
-      state.value = "Register2";
+      return { ...state, value: "Register2" };
     },
     openVerifyEmail: (state) => {
-      state.value = "VerifyEmail";
+      return { ...state, value: "VerifyEmail" };
     },
     reset: (state) => {
-      state.value = "";
+      return { ...state, value: "" };
     },
   },
 });

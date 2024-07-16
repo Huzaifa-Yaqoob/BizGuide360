@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { MapPin, Search, Store } from "lucide-react";
 import Select, { components } from "react-select";
+import { useSelector } from "react-redux";
 import { searchBusiness } from "@/lib/zod/businessSearchForm";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,15 +14,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
-
 const { Control } = components;
 
 export default function SearchBusinessForm() {
+  const [areaOptions, categoryOptions] = useSelector((state) => [
+    state.areas,
+    state.categories,
+  ]);
+
   const form = useForm({
     resolver: zodResolver(searchBusiness),
   });
@@ -44,7 +44,7 @@ export default function SearchBusinessForm() {
               <FormLabel>Select Category</FormLabel>
               <FormControl>
                 <Select
-                  options={options}
+                  options={categoryOptions}
                   components={{ Control: CustomControlCategory }}
                   placeholder="Category..."
                   unstyled
@@ -80,8 +80,8 @@ export default function SearchBusinessForm() {
               <FormLabel>Select Area</FormLabel>
               <FormControl>
                 <Select
+                  options={areaOptions}
                   components={{ Control: CustomControlArea }}
-                  options={options}
                   placeholder="Area..."
                   isClearable
                   unstyled
